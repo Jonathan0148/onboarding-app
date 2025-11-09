@@ -41,7 +41,7 @@ export const SwaggerProperties = {
         DESCRIPTION: {
             EXAMPLE: 'Cuenta digital sin cuota de manejo',
             DESCRIPTION: 'Descripción del producto financiero',
-            MIN_LENGTH: 10,
+            MIN_LENGTH: 3,
             MAX_LENGTH: 200,
         },
         RATE: {
