@@ -1,5 +1,5 @@
 import { applyDecorators, Type } from '@nestjs/common';
-import { ApiResponse } from '@nestjs/swagger';
+import { ApiCreatedResponse, ApiNoContentResponse, ApiNotFoundResponse, ApiOkResponse, ApiResponse } from '@nestjs/swagger';
 import { HttpStatusCodes } from '../constants';
 import { DefaultMessages } from '../constants';
 
@@ -26,3 +26,31 @@ export const ApiHealthResponses = (type: any) => {
         }),
     );
 };
+
+export function ApiProductsResponses(model: Type<unknown>, type: 'GET_ALL' | 'GET_ONE' | 'CREATE' | 'UPDATE' | 'DELETE') {
+    switch (type) {
+        case 'GET_ALL':
+            return applyDecorators(
+                ApiOkResponse({ description: 'Productos obtenidos exitosamente.', type: [model] }),
+            );
+        case 'GET_ONE':
+            return applyDecorators(
+                ApiOkResponse({ description: 'Producto obtenido exitosamente.', type: model }),
+                ApiNotFoundResponse({ description: 'Producto no encontrado.' }),
+            );
+        case 'CREATE':
+            return applyDecorators(
+                ApiCreatedResponse({ description: 'Producto creado exitosamente.', type: model }),
+            );
+        case 'UPDATE':
+            return applyDecorators(
+                ApiOkResponse({ description: 'Producto actualizado exitosamente.', type: model }),
+                ApiNotFoundResponse({ description: 'Producto no encontrado para actualizar.' }),
+            );
+        case 'DELETE':
+            return applyDecorators(
+                ApiNoContentResponse({ description: 'Producto eliminado exitosamente.' }),
+                ApiNotFoundResponse({ description: 'Producto no encontrado para eliminar.' }),
+            );
+    }
+}

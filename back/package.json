@@ -21,6 +21,7 @@
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "test:health": "jest src/modules/health",
     "test:auth": "jest src/modules/auth",
+    "test:product": "jest src/modules/products",
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix"
@@ -42,6 +43,7 @@
     "passport-jwt": "^4.0.1",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.1",
+    "sqlite3": "^5.1.7",
     "swagger-ui-express": "^5.0.1"
   },
   "devDependencies": {
@@ -57,6 +59,7 @@
     "@types/jest": "^29.5.14",
     "@types/joi": "^17.2.2",
     "@types/node": "^22.10.7",
+    "@types/sqlite3": "^3.1.11",
     "@types/supertest": "^6.0.2",
     "cross-env": "^10.1.0",
     "eslint": "^9.18.0",
