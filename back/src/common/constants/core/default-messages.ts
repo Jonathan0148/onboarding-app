@@ -1,7 +1,7 @@
 export const DefaultMessages = {
   // Errores genéricos
   DEFAULT_VALIDATION_ERROR: 'Error de validación en los datos proporcionados.',
-  DEFAULT_UNAUTHORIZED: 'Credenciales inválidas o token no autorizado.',
+  DEFAULT_UNAUTHORIZED: 'Credenciales inválidas.',
   DEFAULT_NOT_FOUND: 'Recurso no encontrado.',
   DEFAULT_INTERNAL_ERROR: 'Error interno del servidor.',
   DEFAULT_FORBIDDEN: 'Acceso denegado. No tiene permisos para esta acción.',
