@@ -9,6 +9,12 @@ interface RequestOptions extends RequestInit {
   showToastError?: boolean;
 }
 
+function getCookie(name: string): string | null {
+  if (typeof document === 'undefined') return null;
+  const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+  return match ? decodeURIComponent(match[2]) : null;
+}
+
 export class ApiClient {
   private baseUrl: string;
 
@@ -17,10 +23,7 @@ export class ApiClient {
   }
 
   private async request<T>(endpoint: string, options: RequestOptions = {}): Promise<T> {
-    let token: string | null = null;
-    if (typeof window !== 'undefined') {
-      token = localStorage.getItem('token');
-    }
+    const token = getCookie('token');
 
     const headers: HeadersInit = {
       'Content-Type': 'application/json',
@@ -32,25 +35,33 @@ export class ApiClient {
       const response = await fetch(`${this.baseUrl}${endpoint}`, {
         ...options,
         headers,
+        credentials: 'include',
         body: options.body ? JSON.stringify(options.body) : undefined,
       });
 
       if (!response.ok) {
-        let errorText = 'Error desconocido';
+        let errorMsg = 'Error desconocido';
         try {
           const errorJson = await response.json();
-          errorText = errorJson.message || JSON.stringify(errorJson);
+          errorMsg = errorJson.message || JSON.stringify(errorJson);
         } catch {
-          errorText = await response.text();
+          errorMsg = await response.text();
         }
 
-        throw new Error(errorText);
+        if (options.showToastError !== false) {
+          toast.error(errorMsg);
+        }
+
+        throw new Error(errorMsg);
       }
 
       const data = await response.json();
 
       if (options.showToastSuccess) {
-        toast.success('Operación exitosa');
+
+        const message = data?.message || 'Operación exitosa';
+        console.log('message', message);
+        toast.success(message);
       }
 
       return data;

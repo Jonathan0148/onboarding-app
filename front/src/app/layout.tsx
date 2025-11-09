@@ -1,23 +1,17 @@
-import type { Metadata } from 'next';
-import { Toaster } from 'react-hot-toast';
-import { LoadingProvider } from '@/context/LoadingContext';
-import LoadingOverlay from '@/components/ui/LoadingOverlay';
-import './globals.css';
+'use client';
 
-export const metadata: Metadata = {
-  title: 'Onboarding App',
-  description: 'App de autenticación y productos',
-};
+import './globals.css';
+import { Providers } from './providers';
+import { Toaster } from 'react-hot-toast';
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="es">
-      <body className="bg-gray-50">
-        <LoadingProvider>
+      <body>
+        <Providers>
           {children}
-          <LoadingOverlay />
           <Toaster position="top-right" reverseOrder={false} />
-        </LoadingProvider>
+        </Providers>
       </body>
     </html>
   );
