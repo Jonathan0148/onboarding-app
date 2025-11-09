@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { ProductsRepository } from './repositories/products.repository.interface';
 import { InMemoryProductsRepository } from './repositories/in-memory-products.repository';
 import { Product } from './entities/product.entity';
@@ -8,14 +8,14 @@ import { HttpSuccessHelper } from '../../common/helpers/http-success.helper';
 import { HttpResponseHelper } from '../../common/helpers/http-responses.helper';
 import { ApiResponse } from '../../common/interfaces/api-response.interface';
 import { PaginationDto } from 'src/common/dto/pagination.dto';
+import { RepositoryProviders } from 'src/common/constants/domains/repositories.constants';
 
 @Injectable()
 export class ProductsService {
-  private repository: ProductsRepository;
-
-  constructor() {
-    this.repository = new InMemoryProductsRepository();
-  }
+  constructor(
+    @Inject(RepositoryProviders.PRODUCTS)
+    private readonly repository: ProductsRepository,
+  ) {}
 
   async findAll(pagination?: PaginationDto): Promise<ApiResponse<Product[]>> {
     const { page = 1, limit = 10, term } = pagination || {};

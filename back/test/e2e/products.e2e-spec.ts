@@ -32,10 +32,19 @@ describe('ProductsModule (E2E)', () => {
   });
 
   it('/api/products/:id (GET) → should return a product', async () => {
-    const all = await request(app.getHttpServer())
-      .get('/api/products')
-      .set('Authorization', `Bearer ${jwt}`);
-    const productId = all.body.data[0].id;
+    const createDto = {
+      name: 'Producto Temporal',
+      description: 'Para prueba GET',
+      rate: 1.2,
+    };
+
+    const createRes = await request(app.getHttpServer())
+      .post('/api/products')
+      .set('Authorization', `Bearer ${jwt}`)
+      .send(createDto)
+      .expect(HttpStatusCodes.CREATED);
+
+    const productId = createRes.body.data.id;
 
     const response = await request(app.getHttpServer())
       .get(`/api/products/${productId}`)
@@ -43,6 +52,7 @@ describe('ProductsModule (E2E)', () => {
       .expect(HttpStatusCodes.OK);
 
     expect(response.body.data.id).toBe(productId);
+    expect(response.body.data.name).toBe(createDto.name);
   });
 
   it('/api/products (POST) → should create a product', async () => {
@@ -77,7 +87,7 @@ describe('ProductsModule (E2E)', () => {
       .get('/api/products')
       .set('Authorization', `Bearer ${jwt}`);
     const productId = all.body.data[0].id;
-    
+
     await request(app.getHttpServer())
       .delete(`/api/products/${productId}`)
       .set('Authorization', `Bearer ${jwt}`)

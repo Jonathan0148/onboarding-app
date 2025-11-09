@@ -1,17 +1,29 @@
+import { Test, TestingModule } from '@nestjs/testing';
 import { ProductsService } from './products.service';
 import { InMemoryProductsRepository } from './repositories/in-memory-products.repository';
 import { HttpResponseHelper } from '../../common/helpers/http-responses.helper';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
+import { RepositoryProviders } from 'src/common/constants/domains/repositories.constants';
 
 describe('ProductsService', () => {
   let service: ProductsService;
   let repository: InMemoryProductsRepository;
 
-  beforeEach(() => {
+  beforeEach(async () => {
     repository = new InMemoryProductsRepository();
-    service = new ProductsService();
-    (service as any).repository = repository;
+
+    const module: TestingModule = await Test.createTestingModule({
+      providers: [
+        ProductsService,
+        {
+          provide: RepositoryProviders.PRODUCTS,
+          useValue: repository,
+        },
+      ],
+    }).compile();
+
+    service = module.get<ProductsService>(ProductsService);
   });
 
   it('should return all products', async () => {
@@ -21,7 +33,8 @@ describe('ProductsService', () => {
   });
 
   it('should find one product by id', async () => {
-    const first = (await repository.findAll()).data?.[0] ?? (await repository.findAll())[0];
+    const { data } = await repository.findAll();
+    const first = Array.isArray(data) ? data[0] : data[0];
     const result = await service.findOneById(first.id);
     expect(result.data!.id).toBe(first.id);
   });
@@ -46,16 +59,16 @@ describe('ProductsService', () => {
   });
 
   it('should update an existing product', async () => {
-    const all = await repository.findAll();
-    const existing = all.data?.[0] ?? all[0];
+    const { data } = await repository.findAll();
+    const existing = Array.isArray(data) ? data[0] : data[0];
     const dto: UpdateProductDto = { name: 'Producto Actualizado' };
     const result = await service.update(existing.id, dto);
     expect(result.data!.name).toBe('Producto Actualizado');
   });
 
   it('should delete an existing product', async () => {
-    const all = await repository.findAll();
-    const existing = all.data?.[0] ?? all[0];
+    const { data } = await repository.findAll();
+    const existing = Array.isArray(data) ? data[0] : data[0];
     const result = await service.delete(existing.id);
     expect(result.success).toBe(true);
   });
