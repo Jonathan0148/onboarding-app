@@ -1,6 +1,18 @@
-import { BadRequestException, UnauthorizedException, NotFoundException, InternalServerErrorException } from '@nestjs/common';
+import {
+  BadRequestException,
+  UnauthorizedException,
+  NotFoundException,
+  InternalServerErrorException,
+  ForbiddenException,
+} from '@nestjs/common';
 import { HttpStatusCodes, HttpErrorCodes } from '../constants';
 import { DefaultMessages } from '../constants';
+
+interface NotFoundContext {
+  resource?: string;
+  id?: string;
+  message?: string;
+}
 
 export class HttpResponseHelper {
   static validationError(errors: any[]) {
@@ -20,7 +32,25 @@ export class HttpResponseHelper {
     });
   }
 
-  static notFound(message = DefaultMessages.DEFAULT_NOT_FOUND) {
+  static forbidden(message = DefaultMessages.DEFAULT_FORBIDDEN) {
+    return new ForbiddenException({
+      statusCode: HttpStatusCodes.FORBIDDEN,
+      code: DefaultMessages.DEFAULT_FORBIDDEN,
+      message,
+    });
+  }
+
+  static notFound(context?: NotFoundContext) {
+    let message = DefaultMessages.DEFAULT_NOT_FOUND;
+
+    if (context?.message) {
+      message = context.message;
+    } else if (context?.resource && context?.id) {
+      message = `${context.resource} con ID ${context.id} no encontrado.`;
+    } else if (context?.resource) {
+      message = `${context.resource} no encontrado.`;
+    }
+
     return new NotFoundException({
       statusCode: HttpStatusCodes.NOT_FOUND,
       code: HttpErrorCodes.NOT_FOUND,

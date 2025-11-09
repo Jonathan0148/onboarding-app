@@ -3,12 +3,13 @@ import { HttpStatusCodes } from '../constants';
 import { ApiResponse } from '../interfaces/api-response.interface';
 
 export class HttpSuccessHelper {
-  static ok<T>(data: T, message = DefaultMessages.SUCCESS_OPERATION): ApiResponse<T> {
+  static ok<T>(data: T, message = DefaultMessages.SUCCESS_OPERATION, meta?: any): ApiResponse<T> {
     return {
       statusCode: HttpStatusCodes.OK,
       success: true,
       message,
       data,
+      ...(meta ? { meta } : {}),
     };
   }
 

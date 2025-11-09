@@ -31,4 +31,23 @@ export const SwaggerProperties = {
             DESCRIPTION: 'Marca de tiempo en la que se verificó el estado',
         },
     },
+    PRODUCTS: {
+        NAME: {
+            EXAMPLE: 'Cuenta de Ahorros',
+            DESCRIPTION: 'Nombre del producto financiero',
+            MIN_LENGTH: 3,
+            MAX_LENGTH: 50,
+        },
+        DESCRIPTION: {
+            EXAMPLE: 'Cuenta digital sin cuota de manejo',
+            DESCRIPTION: 'Descripción del producto financiero',
+            MIN_LENGTH: 10,
+            MAX_LENGTH: 200,
+        },
+        RATE: {
+            EXAMPLE: 0.5,
+            DESCRIPTION: 'Tasa de interés o rentabilidad del producto',
+            MIN: 0,
+        },
+    },
 };
