@@ -50,4 +50,31 @@ export const SwaggerProperties = {
             MIN: 0,
         },
     },
+    ONBOARDING: {
+        NAME: {
+            EXAMPLE: 'Juan Pérez',
+            DESCRIPTION: 'Nombre completo del cliente que realiza el proceso de onboarding',
+            MIN_LENGTH: 3,
+            MAX_LENGTH: 80,
+        },
+        DOCUMENT: {
+            EXAMPLE: '1020304050',
+            DESCRIPTION: 'Número de documento de identidad del cliente',
+            MIN_LENGTH: 5,
+            MAX_LENGTH: 20,
+        },
+        EMAIL: {
+            EXAMPLE: 'juan.perez@correo.com',
+            DESCRIPTION: 'Correo electrónico del cliente para notificaciones y contacto',
+        },
+        INITIAL_AMOUNT: {
+            EXAMPLE: 50000,
+            DESCRIPTION: 'Monto inicial con el que el cliente desea abrir el producto financiero',
+            MIN: 0,
+        },
+        PRODUCT_ID: {
+            EXAMPLE: 'c2eec5a5-8d25-4b62-9d47-bcbf34b132ce',
+            DESCRIPTION: 'Identificador único del producto que el cliente desea abrir',
+        },
+    },
 };

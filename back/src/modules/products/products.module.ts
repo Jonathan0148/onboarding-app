@@ -11,16 +11,16 @@ import { InMemoryProductsRepository } from './repositories/in-memory-products.re
   providers: [
     ProductsService,
     {
-      provide: RepositoryProviders.PRODUCTS,
+      provide: RepositoryProviders.REPOSITORY,
       inject: [ConfigService],
       useFactory: (config: ConfigService) => {
-        const repoType = config.get<string>(RepositoryProviders.PRODUCTS);
+        const repoType = config.get<string>(RepositoryProviders.REPOSITORY);
         return repoType === 'sqlite'
           ? new SqliteProductsRepository()
           : new InMemoryProductsRepository();
       },
     },
   ],
-  exports: [RepositoryProviders.PRODUCTS],
+  exports: [RepositoryProviders.REPOSITORY],
 })
 export class ProductsModule {}

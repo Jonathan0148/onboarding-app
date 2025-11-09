@@ -17,7 +17,7 @@ describe('ProductsService', () => {
       providers: [
         ProductsService,
         {
-          provide: RepositoryProviders.PRODUCTS,
+          provide: RepositoryProviders.REPOSITORY,
           useValue: repository,
         },
       ],
