@@ -3,4 +3,11 @@ export interface ApiResponse<T> {
   success: boolean;
   message: string;
   data?: T;
+  meta?: {
+    totalItems: number;
+    currentPage: number;
+    totalPages: number;
+    limit: number;
+    filter?: string;
+  };
 }

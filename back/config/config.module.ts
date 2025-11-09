@@ -29,7 +29,7 @@ import * as path from 'path';
                 AUTH_PASSWORD: Joi.string().default('12345'),
 
                 // Selección dinámica de repositorio
-                PRODUCTS_REPOSITORY: Joi.string()
+                REPOSITORY: Joi.string()
                     .valid('memory', 'sqlite')
                     .default('memory'),
             }),

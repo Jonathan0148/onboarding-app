@@ -17,4 +17,9 @@ export const SwaggerMessages = {
         SUMMARY_UPDATE: 'Actualiza un producto existente.',
         SUMMARY_DELETE: 'Elimina un producto por su ID.',
     },
+    ONBOARDING: {
+        SUMMARY_GET_ALL: 'Obtiene todas las solicitudes de onboarding registradas en el sistema.',
+        SUMMARY_GET_ONE: 'Obtiene los detalles de una solicitud de onboarding específica por su ID.',
+        SUMMARY_CREATE: 'Crea una nueva solicitud de onboarding para apertura de producto financiero.',
+    },
 };

@@ -1,6 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { ProductsRepository } from './repositories/products.repository.interface';
-import { InMemoryProductsRepository } from './repositories/in-memory-products.repository';
 import { Product } from './entities/product.entity';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
@@ -13,7 +12,7 @@ import { RepositoryProviders } from 'src/common/constants/domains/repositories.c
 @Injectable()
 export class ProductsService {
   constructor(
-    @Inject(RepositoryProviders.PRODUCTS)
+    @Inject(RepositoryProviders.REPOSITORY)
     private readonly repository: ProductsRepository,
   ) {}
 

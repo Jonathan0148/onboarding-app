@@ -54,3 +54,34 @@ export function ApiProductsResponses(model: Type<unknown>, type: 'GET_ALL' | 'GE
             );
     }
 }
+
+export function ApiOnboardingResponses(model: Type<unknown>, type: 'GET_ALL' | 'GET_ONE' | 'CREATE') {
+    switch (type) {
+        case 'GET_ALL':
+            return applyDecorators(
+                ApiOkResponse({
+                    description: 'Solicitudes de onboarding obtenidas exitosamente.',
+                    type: [model],
+                }),
+            );
+
+        case 'GET_ONE':
+            return applyDecorators(
+                ApiOkResponse({
+                    description: 'Solicitud de onboarding obtenida exitosamente.',
+                    type: model,
+                }),
+                ApiNotFoundResponse({
+                    description: 'Solicitud de onboarding no encontrada.',
+                }),
+            );
+
+        case 'CREATE':
+            return applyDecorators(
+                ApiCreatedResponse({
+                    description: 'Solicitud de onboarding creada exitosamente.',
+                    type: model,
+                }),
+            );
+    }
+}
