@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Navbar from '@/components/layout/Navbar';
 import Sidebar from '@/components/layout/Sidebar';
+import Footer from '@/components/layout/Footer';
 
 export default function PrivateLayout({ children }: { children: React.ReactNode }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -12,7 +13,8 @@ export default function PrivateLayout({ children }: { children: React.ReactNode 
       <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
       <div className="flex flex-col flex-1">
         <Navbar onMenuClick={() => setSidebarOpen(!sidebarOpen)} />
-        <main className="flex-1 p-6">{children}</main>
+        <main className="flex-1 p-6 overflow-y-auto">{children}</main>
+        <Footer />
       </div>
     </div>
   );

@@ -57,7 +57,10 @@ export default function ProductsPage() {
         }
         action={
           <button
-            onClick={() => router.push('/products/new')}
+            onClick={() => {
+              setLoading(true);
+              router.push('/products/new')
+            }}
             className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-all cursor-pointer flex items-center gap-2"
           >
             <Icon icon="mdi:plus" />
@@ -88,7 +91,10 @@ export default function ProductsPage() {
                     <td className="py-2 px-4">{p.rate}</td>
                     <td className="py-2 px-4 text-right">
                       <button
-                        onClick={() => router.push(`/products/${p.id}`)}
+                        onClick={() => {
+                          setLoading(true)
+                          router.push(`/products/${p.id}`)
+                        }}
                         className="text-blue-600 hover:text-blue-800 mx-2 cursor-pointer"
                       >
                         <Icon icon="mdi:pencil-outline" width="20" />
