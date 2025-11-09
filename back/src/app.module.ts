@@ -1,8 +1,7 @@
 import { Module } from '@nestjs/common';
 
 import { AuthModule, HealthModule, OnboardingModule, ProductsModule } from './modules';
-
-import { ConfigAppModule } from 'config';
+import { ConfigAppModule } from '../config/config.module';
 
 @Module({
   imports: [
