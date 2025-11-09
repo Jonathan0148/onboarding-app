@@ -1,0 +1,12 @@
+services:
+  backend:
+    build: .
+    container_name: onboarding-api
+    restart: always
+    ports:
+      - '8080:8080'
+    env_file:
+      - ./config/env/.env.production
+    environment:
+      NODE_ENV: production
+    command: npm run start:prod
