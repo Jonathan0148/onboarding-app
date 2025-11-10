@@ -210,7 +210,7 @@ docker compose up --build
 
 ## 📚 Documentación
 
-- **Swagger:** disponible en [`http://localhost:8080/api/docs`](http://localhost:8080/api/docs)  
+- **Swagger:** disponible en [`http://localhost:8080/api/docs`](http://localhost:8080/api/docs) para docker o [`http://localhost:3000/api/docs`](http://localhost:3000/api/docs) para entorno local
   Incluye:
   - Ejemplos de request/response.
   - Autenticación con JWT Bearer.
