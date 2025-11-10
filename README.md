@@ -8,7 +8,7 @@
 
 ## 🧭 Descripción General
 
-Este proyecto implementa la solución completa para el desafío **“El Guardián del Onboarding”**, diseñado para evaluar habilidades en diseño de APIs, arquitectura limpia, seguridad, testing, despliegue y desarrollo fullstack.
+Este proyecto implementa la solución completa para el desafío **“El Guardián del Onboarding”**
 
 La solución se compone de dos módulos principales:
 
