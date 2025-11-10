@@ -31,15 +31,29 @@ export class SqliteOnboardingRepository implements OnboardingRepository {
     this.logger.debug('SQLite database initialized for Onboarding.');
   }
 
-  async findAll(page = 1, limit = 10, term?: string): Promise<{ data: Onboarding[]; total: number }> {
+  async findAll(page = 1, limit = 10, term?: string): Promise<{ data: (Onboarding & { productName?: string })[]; total: number }> {
     return new Promise((resolve, reject) => {
       const offset = (page - 1) * limit;
-      let query = 'SELECT * FROM onboardings';
+
+      let query = `
+      SELECT 
+        o.*, 
+        p.name AS productName
+      FROM onboardings o
+      LEFT JOIN products p ON o.productId = p.id
+    `;
+
       const params: any[] = [];
 
       if (term) {
-        query += ' WHERE name LIKE ? OR document LIKE ? OR email LIKE ?';
-        params.push(`%${term}%`, `%${term}%`, `%${term}%`);
+        query += `
+        WHERE 
+          o.name LIKE ? 
+          OR o.document LIKE ? 
+          OR o.email LIKE ? 
+          OR p.name LIKE ?
+      `;
+        params.push(`%${term}%`, `%${term}%`, `%${term}%`, `%${term}%`);
       }
 
       query += ' LIMIT ? OFFSET ?';
@@ -50,12 +64,22 @@ export class SqliteOnboardingRepository implements OnboardingRepository {
 
         const data = rows ?? [];
 
-        let countQuery = 'SELECT COUNT(*) AS total FROM onboardings';
+        let countQuery = `
+        SELECT COUNT(*) AS total 
+        FROM onboardings o
+        LEFT JOIN products p ON o.productId = p.id
+      `;
         const countParams: any[] = [];
 
         if (term) {
-          countQuery += ' WHERE name LIKE ? OR document LIKE ? OR email LIKE ?';
-          countParams.push(`%${term}%`, `%${term}%`, `%${term}%`);
+          countQuery += `
+          WHERE 
+            o.name LIKE ? 
+            OR o.document LIKE ? 
+            OR o.email LIKE ? 
+            OR p.name LIKE ?
+        `;
+          countParams.push(`%${term}%`, `%${term}%`, `%${term}%`, `%${term}%`);
         }
 
         this.db.get(countQuery, countParams, (countErr, row: any) => {

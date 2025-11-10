@@ -38,6 +38,14 @@ export class ApiClient {
         credentials: 'include',
         body: options.body ? JSON.stringify(options.body) : undefined,
       });
+      if (response.status === 401) {
+        toast.error('Sesión expirada o no autorizada. Inicia sesión nuevamente.');
+        if (typeof window !== 'undefined') {
+          document.cookie = 'token=; Max-Age=0; path=/;';
+          window.location.replace('/login');
+        }
+        throw new Error('No autorizado');
+      }
 
       if (!response.ok) {
         let errorMsg = 'Error desconocido';
@@ -58,9 +66,7 @@ export class ApiClient {
       const data = await response.json();
 
       if (options.showToastSuccess) {
-
         const message = data?.message || 'Operación exitosa';
-        console.log('message', message);
         toast.success(message);
       }
 
