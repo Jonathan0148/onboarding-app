@@ -8,43 +8,89 @@ import { Icon } from '@iconify/react';
 import toast from 'react-hot-toast';
 import type { Product } from '@/types/api/products.types';
 import PageContainer from '@/components/layout/PageContainer';
+import DataTable from '@/components/ui/DataTable';
 import ConfirmDialog from '@/components/ui/ConfirmDialog';
 
 export default function ProductsPage() {
   const [products, setProducts] = useState<Product[]>([]);
   const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [search, setSearch] = useState('');
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
   const { setLoading } = useLoading();
   const router = useRouter();
 
+  const fetchProducts = async (term = '', pageNum = 1) => {
+    setLoading(true);
+    try {
+      const res = await ProductsService.getAll({
+        page: pageNum,
+        limit: 4,
+        term: term || undefined,
+      });
+      setProducts(res.data || []);
+      setTotalPages(res.meta?.totalPages || 1);
+      setPage(res.meta?.currentPage || 1);
+    } catch {
+      toast.error('Error al cargar los productos');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const fetchProducts = async () => {
-      setLoading(true);
-      try {
-        const res = await ProductsService.getAll();
-        setProducts(res.data || []);
-      } catch {
-        toast.error('Error al cargar los productos');
-      } finally {
-        setLoading(false);
-      }
-    };
     fetchProducts();
-  }, [setLoading]);
+  }, []);
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    fetchProducts(search, 1);
+  };
 
   const handleDelete = async () => {
     if (!selectedId) return;
     setLoading(true);
     try {
       await ProductsService.remove(selectedId);
-      setProducts((prev) => prev.filter((x) => x.id !== selectedId));
-      toast.success('Producto eliminado correctamente');
+      fetchProducts(search, page);
     } catch {
       toast.error('Error al eliminar producto');
     } finally {
       setSelectedId(null);
-      setLoading(false);
     }
   };
+
+  const columns = [
+    { header: 'Nombre', accessor: 'name' as keyof Product },
+    { header: 'Descripción', accessor: 'description' as keyof Product },
+    { header: 'Tasa (%)', accessor: 'rate' as keyof Product },
+    {
+      header: 'Acciones',
+      accessor: (p: Product) => (
+        <div className="flex justify-center items-center gap-3 py-1">
+          <button
+            onClick={() => {
+              setLoading(true);
+              router.push(`/products/${p.id}`);
+            }}
+            className="p-2 rounded-lg bg-blue-50 text-blue-600 hover:bg-blue-100 transition-all flex items-center justify-center shadow-sm hover:shadow-md cursor-pointer"
+            title="Editar"
+          >
+            <Icon icon="mdi:pencil-outline" width="20" height="20" />
+          </button>
+
+          <button
+            onClick={() => setSelectedId(p.id)}
+            className="p-2 rounded-lg bg-red-50 text-red-600 hover:bg-red-100 transition-all flex items-center justify-center shadow-sm hover:shadow-md cursor-pointer"
+            title="Eliminar"
+          >
+            <Icon icon="mdi:delete-outline" width="20" height="20" />
+          </button>
+        </div>
+      ),
+      className: 'text-center w-[120px]',
+    },
+  ];
 
   return (
     <>
@@ -59,7 +105,7 @@ export default function ProductsPage() {
           <button
             onClick={() => {
               setLoading(true);
-              router.push('/products/new')
+              router.push('/products/new');
             }}
             className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-all cursor-pointer flex items-center gap-2"
           >
@@ -68,50 +114,44 @@ export default function ProductsPage() {
           </button>
         }
       >
-        {products.length === 0 ? (
-          <div className="text-center text-gray-500 py-6">
-            No hay productos disponibles.
-          </div>
-        ) : (
-          <div className="overflow-x-auto">
-            <table className="min-w-full text-left text-sm">
-              <thead className="bg-gray-100 border-b text-gray-600">
-                <tr>
-                  <th className="py-3 px-4">Nombre</th>
-                  <th className="py-3 px-4">Descripción</th>
-                  <th className="py-3 px-4">Tasa (%)</th>
-                  <th className="py-3 px-4 text-right">Acciones</th>
-                </tr>
-              </thead>
-              <tbody>
-                {products.map((p) => (
-                  <tr key={p.id} className="border-b hover:bg-gray-50">
-                    <td className="py-2 px-4">{p.name}</td>
-                    <td className="py-2 px-4">{p.description}</td>
-                    <td className="py-2 px-4">{p.rate}</td>
-                    <td className="py-2 px-4 text-right">
-                      <button
-                        onClick={() => {
-                          setLoading(true)
-                          router.push(`/products/${p.id}`)
-                        }}
-                        className="text-blue-600 hover:text-blue-800 mx-2 cursor-pointer"
-                      >
-                        <Icon icon="mdi:pencil-outline" width="20" />
-                      </button>
-                      <button
-                        onClick={() => setSelectedId(p.id)}
-                        className="text-red-600 hover:text-red-800 mx-2 cursor-pointer"
-                      >
-                        <Icon icon="mdi:delete-outline" width="20" />
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        )}
+        <form onSubmit={handleSearch} className="flex items-center gap-2 mb-4">
+          <input
+            type="text"
+            placeholder="Buscar producto..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="border rounded-lg px-3 py-2 w-full max-w-xs focus:ring-2 focus:ring-blue-500 outline-none"
+          />
+          <button
+            type="submit"
+            className="bg-blue-600 text-white px-3 py-2 rounded-lg hover:bg-blue-700 transition flex items-center gap-1 cursor-pointer"
+          >
+            <Icon icon="mdi:magnify" width="20" />
+            Buscar
+          </button>
+        </form>
+
+        <DataTable<Product> columns={columns} data={products} />
+
+        <div className="flex justify-center items-center gap-3 mt-4">
+          <button
+            disabled={page <= 1}
+            onClick={() => fetchProducts(search, page - 1)}
+            className="px-3 py-1 border rounded-md hover:bg-gray-100 disabled:opacity-50 cursor-pointer"
+          >
+            <Icon icon="mdi:chevron-left" width="20" />
+          </button>
+          <span className="text-gray-600">
+            Página {page} de {totalPages}
+          </span>
+          <button
+            disabled={page >= totalPages}
+            onClick={() => fetchProducts(search, page + 1)}
+            className="px-3 py-1 border rounded-md hover:bg-gray-100 disabled:opacity-50 cursor-pointer"
+          >
+            <Icon icon="mdi:chevron-right" width="20" />
+          </button>
+        </div>
       </PageContainer>
 
       <ConfirmDialog

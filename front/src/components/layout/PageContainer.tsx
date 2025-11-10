@@ -8,7 +8,7 @@ interface PageContainerProps {
 
 export default function PageContainer({ title, action, children }: PageContainerProps) {
   return (
-    <div className="p-6 space-y-6">
+    <div className="p-4 space-y-4">
       {(title || action) && (
         <div className="flex items-center justify-between">
           <h1 className="text-2xl font-semibold flex items-center gap-2">{title}</h1>
@@ -16,7 +16,7 @@ export default function PageContainer({ title, action, children }: PageContainer
         </div>
       )}
 
-      <div className="bg-white shadow rounded-xl p-6">{children}</div>
+      <div className="bg-white shadow rounded-xl p-4">{children}</div>
     </div>
   );
 }
