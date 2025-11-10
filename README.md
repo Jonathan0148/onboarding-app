@@ -233,8 +233,19 @@ Esta solución cumple con **todos los requerimientos del reto técnico**, ademá
 ✅ Frontend integrado, profesional y funcional.  
 ✅ Código limpio, SOLID y mantenible.
 
----
+## ⚠️ Nota sobre los archivos `.env`
 
-**🏁 Autor:** Jonathan Bohórquez  
-**Repositorio público:** *(inserta aquí la URL de tu GitHub cuando lo subas)*  
-**Fecha:** Noviembre 2025
+Por facilidad y transparencia dentro del contexto de esta **prueba técnica**, se han incluido en el repositorio los archivos de entorno (`.env`) tanto del **backend** como del **frontend**, con el objetivo de facilitar la ejecución y revisión del proyecto sin requerir configuración adicional.
+
+Estos archivos contienen variables como:
+- `PORT`, `JWT_SECRET_DEV`, `JWT_SECRET_PROD`, `REPOSITORY`, entre otras en el backend.  
+- `NEXT_PUBLIC_API_URL`, y configuraciones de entorno en el frontend.
+
+📌 **Importante:**  
+En un entorno **real o de producción**, estos archivos **no deben ser subidos al repositorio**, ya que podrían contener información sensible como claves, tokens o secretos de API.  
+En su lugar, las buenas prácticas indican que deben manejarse a través de:
+- Variables de entorno seguras (`process.env`).
+- Sistemas de gestión de secretos (por ejemplo, Azure Key Vault, AWS Secrets Manager, GitHub Actions Secrets, etc.).
+- Archivos `.env` locales ignorados mediante `.gitignore`.
+
+En este caso, los `.env` se incluyen **únicamente con fines demostrativos** y para simplificar la evaluación del proyecto, permitiendo que los evaluadores puedan levantar los servicios fácilmente sin configuraciones manuales adicionales.
