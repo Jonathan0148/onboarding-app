@@ -201,7 +201,7 @@ npm run test:integration
 npm run test:e2e
 ```
 
-**Levantar ambos servicios en paralelo (si tienes un docker-compose en la raíz)**
+**Levantar cada servicio en su ruta raiz**
 ```
 docker compose up --build
 ```
@@ -224,14 +224,14 @@ docker compose up --build
 
 Esta solución cumple con **todos los requerimientos del reto técnico**, además de varios plus adicionales:
 
-✅ Arquitectura modular, desacoplada y escalable.  
-✅ Validaciones y guardias de seguridad.  
-✅ Persistencia dual (InMemory y SQLite).  
-✅ Documentación exhaustiva.  
-✅ Testing completo (unit, integration, e2e).  
-✅ Dockerización multiambiente.  
-✅ Frontend integrado, profesional y funcional.  
-✅ Código limpio, SOLID y mantenible.
+- Arquitectura modular, desacoplada y escalable.  
+- Validaciones y guardias de seguridad.  
+- Persistencia dual (InMemory y SQLite).  
+- Documentación exhaustiva.  
+- Testing completo (unit, integration, e2e).  
+- Dockerización multiambiente.  
+- Frontend integrado, profesional y funcional.  
+- Código limpio, SOLID y mantenible.
 
 ## Nota sobre los archivos `.env`
 
