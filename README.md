@@ -2,7 +2,7 @@
 
 **Autor:** Jonathan Bohórquez  
 **Tecnologías:** NestJS · Next.js 16 · TypeScript · Docker · SQLite · In-Memory Repositories · Tailwind · Swagger · Postman  
-**Contexto:** Prueba Técnica – Banco Caja Social (sin logos ni imágenes)
+**Contexto:** Prueba Técnica – Banco Caja Social
 
 ---
 
@@ -21,7 +21,7 @@ Toda la solución está **contenedorizada con Docker**, detecta automáticamente
 
 ## ⚙️ Backend (NestJS)
 
-### 🧩 Características principales
+### Características principales
 
 | Módulo | Endpoint | Descripción |
 |--------|-----------|-------------|
@@ -32,7 +32,7 @@ Toda la solución está **contenedorizada con Docker**, detecta automáticamente
 
 ---
 
-### 🧠 Arquitectura y Diseño
+### Arquitectura y Diseño
 
 - **Modularización por Dominio:** cada dominio (Auth, Products, Onboarding, Health) tiene su propio módulo, controlador, servicio, DTOs, entidades y repositorio.  
 - **Repositorios configurables:** mediante la variable `.env` `REPOSITORY`, se puede alternar entre:
@@ -48,7 +48,7 @@ Toda la solución está **contenedorizada con Docker**, detecta automáticamente
 
 ---
 
-### 🧱 Patrones de diseño aplicados
+### Patrones de diseño aplicados
 
 | Patrón | Uso |
 |--------|-----|
@@ -60,7 +60,7 @@ Toda la solución está **contenedorizada con Docker**, detecta automáticamente
 
 ---
 
-### 🧩 Principios SOLID aplicados
+### Principios SOLID aplicados
 
 - **S – Single Responsibility:** cada clase o módulo tiene una única responsabilidad.  
 - **O – Open/Closed:** nuevos repositorios o validadores pueden añadirse sin modificar la lógica existente.  
@@ -92,7 +92,7 @@ Se implementaron tres niveles de pruebas con Jest:
 
 ## 🎨 Frontend (Next.js 16)
 
-### 🌟 Características principales
+### Características principales
 
 - **Framework:** Next.js 16 (App Router) con TypeScript.  
 - **Estilos:** TailwindCSS.  
@@ -115,7 +115,7 @@ Se implementaron tres niveles de pruebas con Jest:
 
 ---
 
-### 🧱 Arquitectura de frontend
+### Arquitectura de frontend
 
 | Componente | Descripción |
 |-------------|--------------|
@@ -127,7 +127,7 @@ Se implementaron tres niveles de pruebas con Jest:
 
 ---
 
-### 🧩 Plus y buenas prácticas
+### 🧩 Buenas prácticas
 
 - Diseño responsive y minimalista.  
 - Dashboard administrativo con KPIs y sliders automáticos.  
@@ -184,7 +184,7 @@ docker compose up --build
 
 ---
 
-## 🧰 Comandos útiles
+## Comandos útiles
 
 **Ejecutar pruebas unitarias**
 ```
@@ -220,7 +220,7 @@ docker compose up --build
 
 ---
 
-## 🧩 Conclusión
+## Conclusión
 
 Esta solución cumple con **todos los requerimientos del reto técnico**, además de varios plus adicionales:
 
@@ -233,7 +233,7 @@ Esta solución cumple con **todos los requerimientos del reto técnico**, ademá
 ✅ Frontend integrado, profesional y funcional.  
 ✅ Código limpio, SOLID y mantenible.
 
-## ⚠️ Nota sobre los archivos `.env`
+## Nota sobre los archivos `.env`
 
 Por facilidad y transparencia dentro del contexto de esta **prueba técnica**, se han incluido en el repositorio los archivos de entorno (`.env`) tanto del **backend** como del **frontend**, con el objetivo de facilitar la ejecución y revisión del proyecto sin requerir configuración adicional.
 
@@ -241,11 +241,11 @@ Estos archivos contienen variables como:
 - `PORT`, `JWT_SECRET_DEV`, `JWT_SECRET_PROD`, `REPOSITORY`, entre otras en el backend.  
 - `NEXT_PUBLIC_API_URL`, y configuraciones de entorno en el frontend.
 
-📌 **Importante:**  
-En un entorno **real o de producción**, estos archivos **no deben ser subidos al repositorio**, ya que podrían contener información sensible como claves, tokens o secretos de API.  
-En su lugar, las buenas prácticas indican que deben manejarse a través de:
+**Importante:**  
+
+Las buenas prácticas indican que deben manejarse a través de:
 - Variables de entorno seguras (`process.env`).
 - Sistemas de gestión de secretos (por ejemplo, Azure Key Vault, AWS Secrets Manager, GitHub Actions Secrets, etc.).
 - Archivos `.env` locales ignorados mediante `.gitignore`.
 
-En este caso, los `.env` se incluyen **únicamente con fines demostrativos** y para simplificar la evaluación del proyecto, permitiendo que los evaluadores puedan levantar los servicios fácilmente sin configuraciones manuales adicionales.
+En este caso, los `.env` se incluyen **únicamente con fines demostrativos** y para simplificar la evaluación del proyecto.
