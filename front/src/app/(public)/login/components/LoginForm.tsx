@@ -44,6 +44,8 @@ export default function LoginForm() {
       router.replace('/home');
     } catch (err: any) {
       setError(err.message || 'Error inesperado');
+    } finally {
+      setLoading(false)
     }
   };
 
