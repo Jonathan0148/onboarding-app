@@ -184,26 +184,22 @@ docker compose up --build
 
 ---
 
-## Comandos útiles
+## Pruebas unitarias, de integración y e2e
 
-**Ejecutar pruebas unitarias**
+Para ejecutarlas, basta con ingresar a la carpeta del backend y usar los siguientes comandos:
+
+```
+cd back
+```
+
+**Ejecutar pruebas unitarias y de integración**
 ```
 npm run test
-```
-
-**Ejecutar pruebas de integración**
-```
-npm run test:integration
 ```
 
 **Ejecutar pruebas E2E**
 ```
 npm run test:e2e
-```
-
-**Levantar cada servicio en su ruta raiz**
-```
-docker compose up --build
 ```
 
 ---
