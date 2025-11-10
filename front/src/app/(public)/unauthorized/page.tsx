@@ -5,7 +5,7 @@ import Link from 'next/link';
 
 export default function UnauthorizedPage() {
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 text-center p-4">
+    <div className="flex flex-col items-center justify-center text-center p-6 bg-white rounded-2xl shadow-md w-full max-w-md">
       <Icon icon="mdi:lock-alert-outline" width={64} className="text-red-500 mb-4" />
       <h1 className="text-2xl font-bold text-gray-800 mb-2">Acceso denegado</h1>
       <p className="text-gray-600 mb-6">

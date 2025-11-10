@@ -1,23 +1,20 @@
-import type { Metadata } from 'next';
-import { Toaster } from 'react-hot-toast';
-import { LoadingProvider } from '@/context/LoadingContext';
-import LoadingOverlay from '@/components/ui/LoadingOverlay';
 import './globals.css';
+import { Providers } from './providers';
+import { Toaster } from 'react-hot-toast';
 
-export const metadata: Metadata = {
-  title: 'Onboarding App',
-  description: 'App de autenticación y productos',
+export const metadata = {
+  title: 'Portal Administrativo',
+  description: 'Aplicación de prueba técnica para la gestión de productos y usuarios en Banco Davivienda.',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="es">
-      <body className="bg-gray-50">
-        <LoadingProvider>
+      <body>
+        <Providers>
           {children}
-          <LoadingOverlay />
           <Toaster position="top-right" reverseOrder={false} />
-        </LoadingProvider>
+        </Providers>
       </body>
     </html>
   );

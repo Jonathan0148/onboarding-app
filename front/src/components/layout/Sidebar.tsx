@@ -19,6 +19,14 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
     return () => document.removeEventListener('keydown', handleEsc);
   }, [isOpen, onClose]);
 
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+
+    document.cookie = 'token=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT;';
+
+    router.replace('/login');
+  };
+
   return (
     <>
       {isOpen && (
@@ -61,12 +69,9 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
           </Link>
 
           <div className="flex-1" />
-          
+
           <button
-            onClick={() => {
-              localStorage.removeItem('token');
-              router.replace('/login');
-            }}
+            onClick={handleLogout}
             className="flex items-center gap-3 text-gray-700 hover:text-red-600 transition p-2 mt-4 rounded-md cursor-pointer border-t border-gray-200 pt-4"
           >
             <Icon icon="mdi:logout" width={20} /> Cerrar sesión

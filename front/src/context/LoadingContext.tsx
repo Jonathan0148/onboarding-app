@@ -15,6 +15,12 @@ export function LoadingProvider({ children }: { children: ReactNode }) {
   return (
     <LoadingContext.Provider value={{ isLoading, setLoading: setIsLoading }}>
       {children}
+
+      {isLoading && (
+        <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-[9999]">
+          <div className="w-14 h-14 border-4 border-white border-t-blue-500 rounded-full animate-spin" />
+        </div>
+      )}
     </LoadingContext.Provider>
   );
 }
