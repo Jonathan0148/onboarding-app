@@ -42,7 +42,7 @@ Toda la solución está **contenedorizada con Docker**, detecta automáticamente
 - **Validaciones:** uso de `class-validator` y `class-transformer` en los DTOs.
 - **Autenticación JWT:** token válido 5 minutos, configurable por entorno (`JWT_SECRET` dinámico).
 - **Guardias (Guards):** protegen rutas privadas (`Products`, `Onboarding`) verificando token JWT.
-- **Swagger:** documentación completa de la API disponible en [`http://localhost:8080/api/docs`](http://localhost:8080/api/docs)  
+- **Swagger:** documentación completa de la API disponible en [`http://localhost:8080/api/docs`](http://localhost:8080/api/docs) para docker o [`http://localhost:3000/api/docs`](http://localhost:3000/api/docs) entorno local
   Incluye descripción de parámetros, ejemplos, paginación y autenticación Bearer.
 - **Postman:** colección exportada con todas las rutas configuradas y ejemplos de request/response.
 
