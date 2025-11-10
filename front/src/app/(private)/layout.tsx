@@ -13,7 +13,7 @@ export default function PrivateLayout({ children }: { children: React.ReactNode 
       <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
       <div className="flex flex-col flex-1">
         <Navbar onMenuClick={() => setSidebarOpen(!sidebarOpen)} />
-        <main className="flex-1 p-6 overflow-y-auto">{children}</main>
+        <main className="flex-1  overflow-y-auto">{children}</main>
         <Footer />
       </div>
     </div>
