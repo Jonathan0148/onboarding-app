@@ -21,7 +21,6 @@ export default function NewOnboardingPage() {
   });
 
   useEffect(() => {
-
     setLoading(true);
     const fetchProducts = async () => {
       try {
@@ -34,7 +33,7 @@ export default function NewOnboardingPage() {
       }
     };
     fetchProducts();
-  }, []);
+  }, [setLoading]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -55,7 +54,15 @@ export default function NewOnboardingPage() {
   return (
     <PageContainer
       title={
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-3">
+          <button
+            onClick={() => router.push('/onboarding')}
+            className="p-2 rounded-lg hover:bg-gray-100 text-gray-600 transition cursor-pointer"
+            title="Volver a Onboardings"
+          >
+            <Icon icon="mdi:arrow-left" width={22} height={22} />
+          </button>
+
           <Icon icon="mdi:plus-box-outline" className="text-blue-600" width={26} />
           <span>Crear Onboarding</span>
         </div>
