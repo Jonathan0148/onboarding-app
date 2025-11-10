@@ -146,99 +146,95 @@ Se implementaron tres niveles de pruebas con Jest:
 - Variable `.env` con `NEXT_PUBLIC_API_URL=http://localhost:8080`.
 
 ---
-
 ## 🚀 Despliegue y Ejecución
 
 ### 🔧 Modo desarrollo
 **Backend**
-```bash
+```
 cd back
 npm install
 npm run start:dev
 # Puerto 3000
+```
 
 **Frontend**
-```bash
+```
 cd front
 npm install
 npm run dev
 # Puerto 4000
+```
 
-## 🚀 Despliegue y Ejecución
+---
 
-### 🔧 Modo desarrollo
+### 🐳 Modo producción con Docker
 **Backend**
-```bash
-cd back
-npm install
-npm run start:dev
-# Puerto 3000
-Frontend
-
-bash
-Copiar código
-cd front
-npm install
-npm run dev
-# Puerto 4000
-🐳 Modo producción con Docker
-Backend
-
-bash
-Copiar código
+```
 cd back
 docker compose up --build
 # Expone puerto 8080
-Frontend
+```
 
-bash
-Copiar código
+**Frontend**
+```
 cd front
 docker compose up --build
 # Expone puerto 4000
-🧰 Comandos útiles
-Ejecutar pruebas unitarias
+```
 
-bash
-Copiar código
+---
+
+## 🧰 Comandos útiles
+
+**Ejecutar pruebas unitarias**
+```
 npm run test
-Ejecutar pruebas de integración
+```
 
-bash
-Copiar código
+**Ejecutar pruebas de integración**
+```
 npm run test:integration
-Ejecutar pruebas E2E
+```
 
-bash
-Copiar código
+**Ejecutar pruebas E2E**
+```
 npm run test:e2e
-Levantar ambos servicios en paralelo (si tienes un docker-compose en la raíz)
+```
 
-bash
-Copiar código
+**Levantar ambos servicios en paralelo (si tienes un docker-compose en la raíz)**
+```
 docker compose up --build
-📚 Documentación
-Swagger: disponible en http://localhost:8080/api/docs
-Incluye:
+```
 
-Ejemplos de request/response.
+---
 
-Autenticación con JWT Bearer.
+## 📚 Documentación
 
-Paginación documentada.
+- **Swagger:** disponible en [`http://localhost:8080/api/docs`](http://localhost:8080/api/docs)  
+  Incluye:
+  - Ejemplos de request/response.
+  - Autenticación con JWT Bearer.
+  - Paginación documentada.
+  - Campos validados.
+- **Postman Collection:** incluida en la raíz del repo (`/docs/postman_collection.json`).
 
-Campos validados.
+---
 
-Postman Collection: incluida en la raíz del repo (/docs/postman_collection.json).
+## 🧩 Conclusión
 
-🧩 Conclusión
-Esta solución cumple con todos los requerimientos del reto técnico, además de varios plus adicionales:
+Esta solución cumple con **todos los requerimientos del reto técnico**, además de varios plus adicionales:
 
-✅ Arquitectura modular, desacoplada y escalable.
-✅ Validaciones y guardias de seguridad.
-✅ Persistencia dual (InMemory y SQLite).
-✅ Documentación exhaustiva.
-✅ Testing completo (unit, integration, e2e).
-✅ Dockerización multiambiente.
-✅ Frontend integrado, profesional y funcional.
+✅ Arquitectura modular, desacoplada y escalable.  
+✅ Validaciones y guardias de seguridad.  
+✅ Persistencia dual (InMemory y SQLite).  
+✅ Documentación exhaustiva.  
+✅ Testing completo (unit, integration, e2e).  
+✅ Dockerización multiambiente.  
+✅ Frontend integrado, profesional y funcional.  
 ✅ Código limpio, SOLID y mantenible.
+
+---
+
+**🏁 Autor:** Jonathan Bohórquez  
+**Repositorio público:** *(inserta aquí la URL de tu GitHub cuando lo subas)*  
+**Fecha:** Noviembre 2025
