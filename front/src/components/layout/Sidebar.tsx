@@ -68,6 +68,14 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
             <Icon icon="mdi:shopping-outline" width={20} /> Productos
           </Link>
 
+          <Link
+            href="/onboarding"
+            onClick={onClose}
+            className="flex items-center gap-3 text-gray-700 hover:text-blue-600 transition cursor-pointer"
+          >
+            <Icon icon="mdi:account-plus-outline" width={20} /> Onboarding
+          </Link>
+
           <div className="flex-1" />
 
           <button

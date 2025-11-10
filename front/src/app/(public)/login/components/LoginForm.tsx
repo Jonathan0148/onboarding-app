@@ -2,7 +2,7 @@
 
 import { AuthService } from '@/services/rest.service';
 import type { LoginResponse } from '@/types/api/auth.types';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useLoading } from '@/context/LoadingContext';
 import { useRouter } from 'next/navigation';
 import { Icon } from '@iconify/react';
@@ -16,6 +16,10 @@ export default function LoginForm() {
   const [error, setError] = useState('');
 
   const [showPassword, setShowPassword] = useState(false);
+
+  useEffect(() => {
+    setLoading(false);
+  }, [setLoading]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

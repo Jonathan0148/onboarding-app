@@ -3,34 +3,31 @@
 import { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { useLoading } from '@/context/LoadingContext';
-import { ProductsService } from '@/services/rest.service';
+import { OnboardingService } from '@/services/rest.service';
 import PageContainer from '@/components/layout/PageContainer';
-import ProductForm from '../components/ProductForm';
 import { Icon } from '@iconify/react';
-import type { Product } from '@/types/api/products.types';
+import OnboardingForm from '../components/OnboardingForm';
 
-export default function EditProductPage() {
+export default function ViewOnboardingPage() {
   const { id } = useParams<{ id: string }>();
   const router = useRouter();
   const { setLoading } = useLoading();
-
-  const [product, setProduct] = useState<Product | null>(null);
+  const [onboarding, setOnboarding] = useState<any | null>(null);
   const [notFound, setNotFound] = useState(false);
 
   useEffect(() => {
-    const fetchProduct = async () => {
+    const fetchData = async () => {
       setLoading(true);
       try {
-        const res = await ProductsService.getById(id);
-        if (res.success) setProduct(res.data);
-        else setNotFound(true);
+        const res = await OnboardingService.getById(id);
+        setOnboarding(res.data);
       } catch {
         setNotFound(true);
       } finally {
         setLoading(false);
       }
     };
-    fetchProduct();
+    fetchData();
   }, [id, setLoading]);
 
   if (notFound) {
@@ -39,45 +36,37 @@ export default function EditProductPage() {
         title={
           <div className="flex items-center gap-2">
             <Icon icon="mdi:alert-circle-outline" className="text-red-500" width={26} />
-            <span>Producto no encontrado</span>
+            <span>Onboarding no encontrado</span>
           </div>
         }
       >
-        <div className="text-center text-gray-500 py-10">
-          <p className="mb-6 text-lg">
-            El producto solicitado no existe o fue eliminado.
-          </p>
-          <button
-            onClick={() => router.replace('/products')}
-            className="px-5 py-2.5 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition"
-          >
-            Volver a productos
-          </button>
-        </div>
+        <p className="text-center text-gray-500 py-10">
+          El registro solicitado no existe o fue eliminado.
+        </p>
       </PageContainer>
     );
   }
 
-  if (!product) return null;
+  if (!onboarding) return null;
 
   return (
     <PageContainer
       title={
         <div className="flex items-center gap-3">
           <button
-            onClick={() => router.push('/products')}
+            onClick={() => router.push('/onboarding')}
             className="p-2 rounded-lg hover:bg-gray-100 text-gray-600 transition cursor-pointer"
-            title="Volver a productos"
+            title="Volver a Onboarding"
           >
             <Icon icon="mdi:arrow-left" width={22} height={22} />
           </button>
 
-          <Icon icon="mdi:pencil-outline" className="text-blue-600" width={26} />
-          <span>Editar producto</span>
+          <Icon icon="mdi:eye-outline" className="text-blue-600" width={26} />
+          <span>Ver Onboarding</span>
         </div>
       }
     >
-      <ProductForm mode="edit" id={id} initialData={product} />
+      <OnboardingForm mode="view" id={id} initialData={onboarding} />
     </PageContainer>
   );
 }

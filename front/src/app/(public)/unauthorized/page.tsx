@@ -1,9 +1,18 @@
 'use client';
 
 import { Icon } from '@iconify/react';
-import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useLoading } from '@/context/LoadingContext';
 
 export default function UnauthorizedPage() {
+  const router = useRouter();
+  const { setLoading } = useLoading();
+
+  const handleGoToLogin = () => {
+    setLoading(true);
+    router.push('/login');
+  };
+
   return (
     <div className="flex flex-col items-center justify-center text-center p-6 bg-white rounded-2xl shadow-md w-full max-w-md">
       <Icon icon="mdi:lock-alert-outline" width={64} className="text-red-500 mb-4" />
@@ -11,12 +20,13 @@ export default function UnauthorizedPage() {
       <p className="text-gray-600 mb-6">
         No tienes permisos para acceder a esta página o tu sesión ha expirado.
       </p>
-      <Link
-        href="/login"
-        className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition"
+      <button
+        onClick={handleGoToLogin}
+        className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition cursor-pointer flex items-center gap-2"
       >
+        <Icon icon="mdi:arrow-left" width={20} />
         Volver al inicio de sesión
-      </Link>
+      </button>
     </div>
   );
 }
