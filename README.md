@@ -1,7 +1,7 @@
-# 🛡️ Prueba Técnica – *El Guardián del Onboarding*
+# Prueba Técnica – *El Guardián del Onboarding*
 
 **Autor:** Jonathan Bohórquez  
-**Tecnologías:** NestJS · Next.js 16 · TypeScript · Docker · SQLite · In-Memory Repositories · Tailwind · Swagger · Postman  
+**Tecnologías:** NestJS · Next.js 16 · TypeScript · Jest · Docker · SQLite · In-Memory Repositories · Tailwind · Swagger · Postman  
 **Contexto:** Prueba Técnica – Banco Caja Social
 
 ---
