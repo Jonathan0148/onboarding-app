@@ -25,7 +25,7 @@ export default function HomePage() {
       index = (index + 1) % products.length;
       const scrollAmount = container.clientWidth * (index / 2);
       container.scrollTo({ left: scrollAmount, behavior: 'smooth' });
-    }, 1500);
+    }, 2000);
 
     return () => clearInterval(interval);
   }, [products]);
@@ -112,7 +112,7 @@ export default function HomePage() {
       </div>
 
       <div className="flex-[1.8] bg-white rounded-2xl shadow p-8 grid grid-cols-1 md:grid-cols-2 gap-8 hover:shadow-lg transition">
-        <div>
+        <div className="bg-gray-100 p-6 rounded-2xl overflow-hidden">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-lg font-semibold text-gray-800 flex items-center gap-2">
               <Icon icon="mdi:chart-line" width={22} className="text-blue-600" />
@@ -132,11 +132,15 @@ export default function HomePage() {
               {products.map((p) => (
                 <div
                   key={p.id}
-                  className="min-w-[45%] flex-shrink-0 border rounded-xl p-5 text-center hover:shadow-md transition bg-white scroll-snap-align-start"
+                  className="min-w-[40%] h-48 flex-shrink-0 border rounded-xl p-5 bg-white scroll-snap-align-start 
+             flex flex-col justify-between items-center text-center hover:shadow-md transition"
                 >
-                  <h3 className="font-semibold text-gray-800 mb-1">{p.name}</h3>
-                  <p className="text-sm text-gray-600 mb-3 line-clamp-2">{p.description}</p>
-                  <p className="text-lg font-bold text-green-600">{p.rate}% Tasa</p>
+                  <div>
+                    <h3 className="font-semibold text-gray-800 text-base mb-2">{p.name}</h3>
+                    <p className="text-sm text-gray-600 line-clamp-2">{p.description}</p>
+                  </div>
+
+                  <p className="text-lg font-bold text-green-600 mt-2">{p.rate}% Tasa</p>
                 </div>
               ))}
             </div>
